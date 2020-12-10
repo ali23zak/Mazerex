@@ -12,9 +12,9 @@
 
 using namespace std;
 SenseHat senseHat;
-
+//Defining colors
 #define r 	0xF800
-#define b   0x0000
+#define b   0x0000          //b is Black
 #define w   0xFFFF
 #define g   0x07E0
 
@@ -22,6 +22,8 @@ int red = 63488;
 int blue = 0;
 int white = 65535;
 int green = 2016;
+
+//Usuing the data from the gyro for movment
 
 float pitch,roll,yaw;
 uint16_t pixel;
@@ -33,12 +35,12 @@ int y = 1;
 
 int game_over = 1;
 
-uint16_t maze[8][8] ={{r,r,r,r,r,r,r,r},{r,b,b,b,b,b,b,r},{r,r,r,b,r,r,r,r},{r,b,r,b,r,b,b,r},{r,b,b,b,b,b,b,r},{r,b,r,r,r,r,b,r},{r,b,b,r,g,b,b,r},{r,r,r,r,r,r,r,r}};
-uint16_t maze_over[8][8] ={{g,g,g,g,g,g,g,g},{g,g,g,g,g,g,g,g},{g,g,g,g,g,g,g,g},{g,g,g,g,g,g,g,g},{g,g,g,g,g,g,g,g},{g,g,g,g,g,g,g,g},{g,g,g,g,g,g,g,g},{g,g,g,g,g,g,g,g}};
-uint16_t maze_end[8][8] ={{r,r,r,r,r,r,r,r},{r,r,r,r,r,r,r,r},{r,r,r,r,r,r,r,r},{r,r,r,r,r,r,r,r},{r,r,r,r,r,r,r,r},{r,r,r,r,r,r,r,r},{r,r,r,r,r,r,r,r},{r,r,r,r,r,r,r,r}};
-uint16_t maze1[8][8] ={{r,r,r,r,r,r,r,r},{r,r,b,b,b,b,r,r},{r,b,r,r,r,r,b,r},{r,b,r,b,g,r,b,r},{r,b,r,b,b,r,b,r},{r,b,b,b,r,b,b,r},{r,r,b,b,r,b,r,r},{r,r,r,r,r,r,r,r}};
-uint16_t maze2[8][8] ={{b,b,b,b,b,r,b,b},{b,r,b,b,r,b,b,b},{r,b,b,r,b,b,r,b},{b,b,r,b,b,r,b,b},{b,r,b,b,r,b,b,r},{b,b,b,r,b,b,b,b},{b,r,r,b,r,b,r,b},{r,b,b,r,b,r,b,g}};
-uint16_t maze3[8][8] ={{b,b,b,r,b,b,b,b},{b,r,b,r,b,r,b,b},{b,r,b,r,b,r,b,b},{b,r,b,r,b,r,b,b},{b,r,b,r,b,r,b,b},{b,r,b,r,b,r,b,b},{b,r,b,r,b,r,b,b},{b,r,b,b,b,r,b,g}};
+uint16_t maze[8][8] ={{r,r,r,r,r,r,r,r},{r,b,b,b,b,b,b,r},{r,r,r,b,r,r,r,r},{r,b,r,b,r,b,b,r},{r,b,b,b,b,b,b,r},{r,b,r,r,r,r,b,r},{r,b,b,r,g,b,b,r},{r,r,r,r,r,r,r,r}};   //Maze 1
+uint16_t maze_over[8][8] ={{g,g,g,g,g,g,g,g},{g,g,g,g,g,g,g,g},{g,g,g,g,g,g,g,g},{g,g,g,g,g,g,g,g},{g,g,g,g,g,g,g,g},{g,g,g,g,g,g,g,g},{g,g,g,g,g,g,g,g},{g,g,g,g,g,g,g,g}};  //Level winning screen
+uint16_t maze_end[8][8] ={{r,r,r,r,r,r,r,r},{r,r,r,r,r,r,r,r},{r,r,r,r,r,r,r,r},{r,r,r,r,r,r,r,r},{r,r,r,r,r,r,r,r},{r,r,r,r,r,r,r,r},{r,r,r,r,r,r,r,r},{r,r,r,r,r,r,r,r}};  // Game wining screen
+uint16_t maze1[8][8] ={{r,r,r,r,r,r,r,r},{r,r,b,b,b,b,r,r},{r,b,r,r,r,r,b,r},{r,b,r,b,g,r,b,r},{r,b,r,b,b,r,b,r},{r,b,b,b,r,b,b,r},{r,r,b,b,r,b,r,r},{r,r,r,r,r,r,r,r}}; //Maze 2
+uint16_t maze2[8][8] ={{b,b,b,b,b,r,b,b},{b,r,b,b,r,b,b,b},{r,b,b,r,b,b,r,b},{b,b,r,b,b,r,b,b},{b,r,b,b,r,b,b,r},{b,b,b,r,b,b,b,b},{b,r,r,b,r,b,r,b},{r,b,b,r,b,r,b,g}};  //Maze 3
+uint16_t maze3[8][8] ={{b,b,b,r,b,b,b,b},{b,r,b,r,b,r,b,b},{b,r,b,r,b,r,b,b},{b,r,b,r,b,r,b,b},{b,r,b,r,b,r,b,b},{b,r,b,r,b,r,b,b},{b,r,b,r,b,r,b,b},{b,r,b,b,b,r,b,g}};  //Maze 4
 
 tuple<int, int> check_wall(int x, int y, int new_x, int new_y)
 {
